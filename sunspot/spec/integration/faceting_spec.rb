@@ -69,6 +69,13 @@ describe 'search faceting' do
       search.facet(:title).should have(3).rows
     end
 
+    it 'should return facet rows from an offset' do
+      search = Sunspot.search(Post) do
+        facet :title, :offset => 3
+      end
+      search.facet(:title).should have(2).rows
+    end
+
     it 'should not return zeros by default' do
       search = Sunspot.search(Post) do
         with :blog_id, 1
