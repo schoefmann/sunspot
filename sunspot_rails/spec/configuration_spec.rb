@@ -67,6 +67,10 @@ describe Sunspot::Rails::Configuration, "default values without a sunspot.yml" d
   it "should handle the 'auto_commit_after_delete_request' propery when not set" do
     @config.auto_commit_after_delete_request?.should == false
   end
+  
+  it "should handle the "jvm_opts" property when not set" do
+    @config.jvm_opts.should == []
+  end
 end
 
 describe Sunspot::Rails::Configuration, "user provided sunspot.yml" do
@@ -107,12 +111,16 @@ describe Sunspot::Rails::Configuration, "user provided sunspot.yml" do
     @config.solr_home.should == '/my_superior_path'
   end
 
-  it "should handle the 'auto_commit_after_request' propery when set" do
+  it "should handle the 'auto_commit_after_request' property when set" do
     @config.auto_commit_after_request?.should == false
   end
   
-  it "should handle the 'auto_commit_after_delete_request' propery when set" do
+  it "should handle the 'auto_commit_after_delete_request' property when set" do
     @config.auto_commit_after_delete_request?.should == true
+  end
+  
+  it "should handle the 'jvm_opts' property when set" do
+    @config.jvm_opts.should == ["-server", "-d64"]
   end
 end
 

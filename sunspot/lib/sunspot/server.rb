@@ -17,7 +17,7 @@ module Sunspot
     LOG_LEVELS = Set['SEVERE', 'WARNING', 'INFO', 'CONFIG', 'FINE', 'FINER', 'FINEST']
 
     attr_accessor :min_memory, :max_memory, :port, :solr_data_dir, :solr_home, :log_file
-    attr_writer :pid_dir, :pid_file, :log_level, :solr_data_dir, :solr_home, :solr_jar
+    attr_writer :pid_dir, :pid_file, :log_level, :solr_data_dir, :solr_home, :solr_jar, :jvm_opts
 
     #
     # Start the sunspot-solr server. Bootstrap solr_home first,
@@ -62,7 +62,7 @@ module Sunspot
     # Boolean:: success
     #
     def run
-      command = ['java']
+      command = ['java'] + jvm_opts
       command << "-Xms#{min_memory}" if min_memory
       command << "-Xmx#{max_memory}" if max_memory
       command << "-Djetty.port=#{port}" if port
@@ -130,6 +130,10 @@ module Sunspot
 
     def solr_jar
       @solr_jar || SOLR_START_JAR
+    end
+    
+    def jvm_opts
+      @jvm_opts || []
     end
 
     private

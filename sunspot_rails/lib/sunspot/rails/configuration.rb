@@ -24,6 +24,9 @@ module Sunspot #:nodoc:
     #       path: /solr/myindex
     #       log_level: WARNING
     #       solr_home: /some/path
+    #       jvm_opts:
+    #         - -d64
+    #         - -server
     #     master_solr:
     #       hostname: localhost
     #       port: 8982
@@ -234,6 +237,13 @@ module Sunspot #:nodoc:
       #
       def max_memory
         @max_memory ||= user_configuration_from_key('solr', 'max_memory')
+      end
+      
+      #
+      # Additional JVM options
+      #
+      def jvm_opts
+        @jvm_opts ||= (user_configuration_from_key('solr', 'jvm_opts') || [])
       end
       
       private

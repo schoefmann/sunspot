@@ -111,6 +111,13 @@ module Sunspot
       def max_memory
         configuration.max_memory
       end
+      
+      #
+      # Additional JVM options
+      #
+      def jvm_opts
+        configuration.jvm_opts
+      end
 
       private
 
