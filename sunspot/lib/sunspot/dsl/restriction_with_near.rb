@@ -105,6 +105,10 @@ module Sunspot
       # N is 1/16 as relevant as a match at precision N+1 (this is consistent
       # with the fact that each precision's bounding box is about sixteen
       # times the size of the next highest precision.)</dd>
+      # <dt><code>:max_precision</code></dt>
+      # <dd>The maximum precision matches should be checked for. Locations
+      # matching beyond this precision will rank equally. This is useful if
+      # you do not care if a location has a distance of 1 or 100 meters.</dd>
       #
       # ==== Example
       #

@@ -30,6 +30,13 @@ shared_examples_for 'geohash query' do
     connection.should have_last_search_including(:q, build_geo_query(:precision_factor => 1.5))
   end
 
+  it 'searches for nearby points with given max precision' do
+    search do
+      with(:coordinates).near(40.7, -73.5, :max_precision => 8)
+    end
+    connection.should have_last_search_including(:q, build_geo_query(:max_precision => 8))
+  end
+
   it 'searches for nearby points with given boost' do
     search do
       with(:coordinates).near(40.7, -73.5, :boost => 2.0)
@@ -55,6 +62,7 @@ shared_examples_for 'geohash query' do
   def build_geo_query(options = {})
     precision = options[:precision] || 7
     precision_factor = options[:precision_factor] || 16.0
+    max_precision = options[:max_precision] || 12
     boost = options[:boost] || 1.0
     hash = 'dr5xx3nytvgs'
     (precision..12).map do |i|
